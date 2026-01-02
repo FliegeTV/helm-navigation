@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HELM – Professional Sailing Navigation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      :root {
+        --color-bg: #0f1419;
+        --color-bg-elevated: #1a1f2e;
+        --color-bg-card: #252d3d;
+        --color-text: #ffffff;
+        --color-text-secondary: #9ca3af;
+        --color-teal: #5ac8fa;
+        --color-border: #2d3748;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+          "Segoe UI", sans-serif;
+        line-height: 1.6;
+        color: var(--color-text);
+        background: var(--color-bg);
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 40px;
+      }
+
+      /* Dev Banner */
+      .dev-banner {
+        background: var(--color-bg-elevated);
+        color: var(--color-text-secondary);
+        padding: 10px 0;
+        text-align: center;
+        font-size: 13px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 1px solid var(--color-border);
+      }
+
+      /* Header */
+      header {
+        padding: 24px 0;
+        border-bottom: 1px solid var(--color-border);
+        background: rgba(15, 20, 25, 0.8);
+        backdrop-filter: blur(20px);
+        position: sticky;
+        top: 36px;
+        z-index: 50;
+      }
+
+      header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        text-decoration: none;
+        display: flex;
+        align-items: flex-end;
+      }
+
+      .logo svg {
+        width: 80px;
+        height: 40px;
+      }
+
+      nav {
+        display: flex;
+        gap: 40px;
+        align-items: center;
+      }
+
+      nav a {
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      nav a:hover {
+        color: var(--color-text);
+      }
+
+      /* Hero Section */
+      .hero {
+        position: relative;
+        padding: 140px 0 100px;
+        text-align: center;
+        overflow: hidden;
+        background: linear-gradient(
+          135deg,
+          rgba(15, 20, 25, 0.95) 0%,
+          rgba(26, 31, 46, 0.85) 100%
+        );
+        background-image: url("https://user-gen-media-assets.s3.amazonaws.com/seedream_images/575dfa2a-adb7-499f-8127-83b3cc66e537.png");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(15, 20, 25, 0.85) 0%,
+          rgba(26, 31, 46, 0.75) 100%
+        );
+        z-index: 0;
+      }
+
+      .hero .container {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero h1 {
+        font-size: 64px;
+        font-weight: 700;
+        margin-bottom: 20px;
+        line-height: 1.1;
+        color: var(--color-text);
+        letter-spacing: -1.5px;
+      }
+
+      .hero .subtitle {
+        font-size: 20px;
+        color: var(--color-text-secondary);
+        margin-bottom: 40px;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        font-weight: 400;
+      }
+
+      .cta-primary {
+        display: inline-block;
+        background: var(--color-teal);
+        color: #000;
+        padding: 16px 40px;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        text-decoration: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .cta-primary:hover {
+        background: #48b5e0;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(90, 200, 250, 0.3);
+      }
+
+      /* Features Section */
+      .features {
+        padding: 100px 0;
+        background: var(--color-bg-elevated);
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 70px;
+      }
+
+      .section-header h2 {
+        font-size: 42px;
+        font-weight: 700;
+        color: var(--color-text);
+        margin-bottom: 16px;
+        letter-spacing: -0.5px;
+      }
+
+      .section-header p {
+        font-size: 18px;
+        color: var(--color-text-secondary);
+        font-weight: 400;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 32px;
+      }
+
+      .feature-item {
+        background: var(--color-bg-card);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid var(--color-border);
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .feature-item:hover {
+        border-color: var(--color-teal);
+        transform: translateY(-4px);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      }
+
+      .feature-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .feature-content {
+        padding: 28px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .feature-icon {
+        font-size: 28px;
+        margin-bottom: 12px;
+        display: block;
+        color: var(--color-teal);
+      }
+
+      .feature-item h3 {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: 12px;
+      }
+
+      .feature-item p {
+        color: var(--color-text-secondary);
+        font-size: 15px;
+        line-height: 1.6;
+      }
+
+      /* Signup Section */
+      .signup-section {
+        padding: 100px 0;
+        background: var(--color-bg);
+        border-top: 1px solid var(--color-border);
+      }
+
+      .signup-container {
+        max-width: 600px;
+        margin: 0 auto;
+        background: var(--color-bg-card);
+        padding: 50px;
+        border-radius: 24px;
+        border: 1px solid var(--color-border);
+      }
+
+      .signup-header h2 {
+        font-size: 36px;
+        font-weight: 700;
+        color: var(--color-text);
+        margin-bottom: 12px;
+        text-align: center;
+      }
+
+      .signup-header p {
+        text-align: center;
+        color: var(--color-text-secondary);
+        font-size: 16px;
+        margin-bottom: 40px;
+      }
+
+      .signup-form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .form-group label {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: 8px;
+      }
+
+      .form-group input {
+        padding: 14px 16px;
+        border: 1px solid var(--color-border);
+        border-radius: 12px;
+        font-size: 15px;
+        font-family: inherit;
+        background: var(--color-bg-elevated);
+        color: var(--color-text);
+        transition: all 0.2s;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--color-teal);
+        box-shadow: 0 0 0 3px rgba(90, 200, 250, 0.1);
+      }
+
+      .form-group input::placeholder {
+        color: var(--color-text-secondary);
+      }
+
+      .cta-submit {
+        background: var(--color-teal);
+        color: #000;
+        padding: 16px;
+        border: none;
+        border-radius: 12px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s;
+        margin-top: 12px;
+      }
+
+      .cta-submit:hover {
+        background: #48b5e0;
+        transform: translateY(-2px);
+      }
+
+      .form-notice {
+        text-align: center;
+        font-size: 13px;
+        color: var(--color-text-secondary);
+        margin-top: 16px;
+      }
+
+      /* Footer */
+      footer {
+        background: var(--color-bg);
+        color: var(--color-text);
+        padding: 60px 0 30px;
+        border-top: 1px solid var(--color-border);
+      }
+
+      .footer-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 40px;
+      }
+
+      .footer-links a {
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        font-size: 14px;
+        transition: color 0.2s;
+      }
+
+      .footer-links a:hover {
+        color: var(--color-teal);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid var(--color-border);
+        padding-top: 30px;
+        text-align: center;
+        font-size: 13px;
+        color: var(--color-text-secondary);
+      }
+
+      .footer-bottom p {
+        margin: 6px 0;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 20px;
+        }
+
+        .hero {
+          padding: 100px 0 70px;
+        }
+
+        .hero h1 {
+          font-size: 40px;
+        }
+
+        .section-header h2 {
+          font-size: 32px;
+        }
+
+        .features-grid {
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          gap: 24px;
+          text-align: center;
+        }
+
+        .signup-container {
+          padding: 30px 20px;
+        }
+
+        nav {
+          gap: 20px;
+          font-size: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Development Banner -->
+    <div class="dev-banner">In Active Development</div>
+
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <a href="/" class="logo">
+          <svg viewBox="0 0 280 100" xmlns="http://www.w3.org/2000/svg">
+            <text
+              x="20"
+              y="75"
+              font-family="system-ui, -apple-system, sans-serif"
+              font-size="72"
+              font-weight="700"
+              fill="#ffffff"
+              letter-spacing="-2"
+            >
+              HELM
+            </text>
+            <line
+              x1="20"
+              y1="85"
+              x2="240"
+              y2="85"
+              stroke="#5ac8fa"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+          </svg>
+        </a>
+        <nav>
+          <a href="#features">Features</a>
+          <a href="#signup">Join Beta</a>
+          <a href="mailto:hello@helmapp.de">Contact</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Navigation made simple</h1>
+        <p class="subtitle">
+          Professional sailing navigation app with offline charts, 6000+
+          harbors, and AI-powered route planning for serious sailors.
+        </p>
+        <a href="#signup" class="cta-primary">Join the Beta</a>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <h2>Built for serious sailors</h2>
+          <p>Everything you need for safe and efficient navigation</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-item">
+            <img
+              src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/620a7699-34fb-4674-94ae-d8a2d707a2d0.png"
+              alt="Smart Route Planning"
+            />
+            <div class="feature-content">
+              <span class="feature-icon">→</span>
+              <h3>Smart Route Planning</h3>
+              <p>
+                AI-optimized routing considering weather, currents, and
+                anchorages for every passage.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <img
+              src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/c8041beb-d703-47c1-8e99-f61486a4e1bf.png"
+              alt="Offline Maps"
+            />
+            <div class="feature-content">
+              <span class="feature-icon">◆</span>
+              <h3>Offline Maps</h3>
+              <p>
+                Download nautical charts and navigate anywhere. Works without
+                internet or cellular signal.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <img
+              src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/52ce4c94-b304-4d7f-88ba-f2713cd860f0.png"
+              alt="6000+ Harbors"
+            />
+            <div class="feature-content">
+              <span class="feature-icon">✓</span>
+              <h3>6000+ Harbors</h3>
+              <p>
+                Comprehensive database of harbors, marinas, and anchorages with
+                detailed information.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <img
+              src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/729b4ff9-daf0-4b5f-9d54-74b3904daa11.png"
+              alt="Real Community Reviews"
+            />
+            <div class="feature-content">
+              <span class="feature-icon">◇</span>
+              <h3>Real Community Reviews</h3>
+              <p>
+                Read reviews and see photos from experienced sailors who've
+                anchored there.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <img
+              src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/e9263fea-95a6-4db2-9df4-3e201dd64083.png"
+              alt="Live Weather"
+            />
+            <div class="feature-content">
+              <span class="feature-icon">•</span>
+              <h3>Live Weather</h3>
+              <p>
+                Real-time weather data integrated directly into your route
+                planning and navigation.
+              </p>
+            </div>
+          </div>
+
+          <div class="feature-item">
+            <img
+              src="https://user-gen-media-assets.s3.amazonaws.com/seedream_images/1c2a6cc3-bc4f-4a63-86da-f9099da477b0.png"
+              alt="GPX & Standards"
+            />
+            <div class="feature-content">
+              <span class="feature-icon">∞</span>
+              <h3>GPX & Standards</h3>
+              <p>
+                Full support for GPX files and industry-standard formats. Works
+                with all chartplotters.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Signup Section -->
+    <section class="signup-section" id="signup">
+      <div class="container">
+        <div class="signup-container">
+          <div class="signup-header">
+            <h2>Join the Beta</h2>
+            <p>
+              Be among the first to experience professional sailing navigation
+            </p>
+          </div>
+
+          <form class="signup-form" onsubmit="handleSignup(event)">
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="you@example.com"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="Your name"
+                required
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="boat">Boat Type</label>
+              <input
+                type="text"
+                id="boat"
+                name="boat"
+                placeholder="e.g., Bavaria 40, Catamaran"
+                required
+              />
+            </div>
+
+            <button type="submit" class="cta-submit">Register for Beta</button>
+            <p class="form-notice">
+              We'll send you early access as soon as we launch.
+            </p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-links">
+            <a href="mailto:hello@helmapp.de">Contact</a>
+            <a href="#">Impressum</a>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2026 Horizon Electronics Marine Systems</p>
+          <p>hello@helmapp.de</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      function handleSignup(event) {
+        event.preventDefault();
+        const email = document.getElementById("email").value;
+        const name = document.getElementById("name").value;
+        const boat = document.getElementById("boat").value;
+
+        alert(
+          `Thanks ${name}! We'll be in touch soon at ${email}.\n\nBoat: ${boat}`
+        );
+        event.target.reset();
+      }
+    </script>
+  </body>
+</html>
