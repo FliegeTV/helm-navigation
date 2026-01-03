@@ -1,0 +1,12 @@
+# Essentials
+.venv/
+__pycache__/
+*.pyc
+.env
+*.log
+.DS_Store
+.vscode/
+.idea/
+dist/
+build/
+*.egg-info/
